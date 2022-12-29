@@ -16,6 +16,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    //생성
     public void create(UserDto user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("email already exists");
@@ -31,6 +32,7 @@ public class UserService {
         userRepository.save(newUser);
     }
 
+    //변경
     public void update(Long id, UserDto user) {
         Optional<User> foundUser = userRepository.findById(id);
         if (foundUser.isPresent()) {
@@ -43,6 +45,7 @@ public class UserService {
         }
     }
 
+    //삭제
     public void delete(Long id) {
         Optional<User> aUser = readOne(id);
         if (aUser.isPresent()) {
@@ -52,14 +55,17 @@ public class UserService {
         }
     }
 
+    //전체 삭제
     public void delete(){
         userRepository.deleteAll();
     }
 
+    //조회
     public Optional<User> readOne(Long id) {
         return userRepository.findById(id);
     }
 
+    //전체 조회
     public List<User> readAll() {
         return userRepository.findAll();
     }
